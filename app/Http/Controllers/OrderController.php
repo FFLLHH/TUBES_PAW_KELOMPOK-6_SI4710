@@ -64,4 +64,13 @@ class OrderController extends Controller
 
         return redirect()->route('orders')->with('success', 'Order Deleted');
     }
+
+    // API: GET all orders (JSON)
+    public function apiIndex()
+    {
+    
+        return response()->json(Orderz::all());
+    }
+
+    
 }
