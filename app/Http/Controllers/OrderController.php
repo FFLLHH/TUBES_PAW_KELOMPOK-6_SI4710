@@ -74,14 +74,12 @@ class OrderController extends Controller
      // API: GET order by id (JSON)
     public function apiShow($id)
     {
-        
-        $order = Orderz::find($id);
+        $order = Order::find($id);
         if ($order) {
             return response()->json($order);
         }
         return response()->json(['message' => 'Order not found'], 404);
     }
 
-   
-    
+
 }
