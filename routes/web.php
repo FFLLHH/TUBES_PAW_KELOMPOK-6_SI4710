@@ -68,5 +68,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/admin/product/delete/{id}', 'delete')->name('productDelete');
     });
 
-    Route::resource('shippings', ShippingController::class);
+    //Route::resource('shippings', ShippingController::class);
 });
