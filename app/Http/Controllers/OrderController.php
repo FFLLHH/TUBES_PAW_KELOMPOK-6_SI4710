@@ -68,9 +68,6 @@ class OrderController extends Controller
     // API: GET all orders (JSON)
     public function apiIndex()
     {
-    
-        return response()->json(Orderz::all());
+        return response()->json(Order::all());
     }
-
-    
 }
