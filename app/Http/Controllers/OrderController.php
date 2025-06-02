@@ -65,21 +65,4 @@ class OrderController extends Controller
         return redirect()->route('orders')->with('success', 'Order Deleted');
     }
 
-    // API: GET all orders (JSON)
-    public function apiIndex()
-    {
-        return response()->json(Order::all());
-    }
-
-     // API: GET order by id (JSON)
-    public function apiShow($id)
-    {
-        $order = Order::find($id);
-        if ($order) {
-            return response()->json($order);
-        }
-        return response()->json(['message' => 'Order not found'], 404);
-    }
-
-
 }
