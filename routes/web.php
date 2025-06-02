@@ -54,6 +54,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('/shop/update-password', 'updatePassword')->name('shopUpdatePassword');
     });
 
+    Route::controller(CategoryController::class)->group(function() {
+        Route::get('/admin/category', 'index')->name('category');
+        Route::get('/admin/category/create', 'create')->name('categoryCreate');
+        Route::post('/admin/category/check', 'check')->name('categoryCheck');
+        Route::post('/admin/category/save', 'save')->name('categorySave');
+        Route::get('/admin/category/delete/{id}/{path}', 'delete')->name('categoryDelete');
+        Route::get('/admin/category/edit/{id}', 'edit')->name('categoryEdit');
+        Route::post('/admin/category/update/{id}', 'update')->name('categoryUpdate');
+    });
+
     Route::controller(ProductController::class)->group(function() {
         Route::get('/admin/products', 'index')->name('products');
         Route::get('/admin/product/create', 'create')->name('productCreate');
@@ -68,5 +78,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/admin/product/delete/{id}', 'delete')->name('productDelete');
     });
 
-    //Route::resource('shippings', ShippingController::class);
+    Route::controller(OrderController::class)->group(function() {
+        Route::get('/admin/orders', 'index')->name('orders');
+        Route::get('/admin/order/{order_code}', 'detail')->name('orderDetail');
+        Route::post('/admin/order/update-status/{order_code}', 'updateStatus')->name('orderUpdateStatus');
+        Route::get('/admin/order/delete/{order_code}', 'delete')->name('orderDelete');
+    });
+
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create'])->name('userCreate');
+    Route::post('/users/store', [UserController::class, 'store'])->name('userStore');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('userEdit');
+    Route::post('/users/update/{id}', [UserController::class, 'update'])->name('userUpdate');
+    Route::get('/users/delete/{id}', [UserController::class, 'destroy'])->name('userDelete');
+
+    Route::resource('shippings', ShippingController::class);
 });
