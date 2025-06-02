@@ -25,3 +25,7 @@ Route::middleware('api')
         Route::get('/product', [ProductController::class, 'index']);
         Route::get('/product/{id}', [ProductController::class, 'show']);
     });
+
+Route::middleware('api')->get('/user', function (Request $request) {
+    return $request->user();
+});
