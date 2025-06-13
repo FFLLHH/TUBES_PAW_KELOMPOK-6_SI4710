@@ -17,16 +17,16 @@
         <form action="{{ route('producSave') }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" class="form-control  @error('title') is-invalid @enderror" placeholder="Chicken nugget spicy" value="{{ old('title') }}" required>
+            <label for="title">Nama</label>
+            <input type="text" name="title" id="title" class="form-control  @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
             @error('title') 
               <small class="text-danger">{{ $message }}</small>
             @enderror
           </div>
           <div class="form-group">
-            <label for="category">Category</label>
+            <label for="category">Kategori</label>
             <select name="category" id="category" class="form-select @error('category') is-invalid @enderror" required>
-              <option selected disabled>Select Category</option>
+              <option selected disabled>Pilih Kategori</option>
               @foreach (Auth::user()->shop->category as $item)
                 <option value="{{ $item->id }}" {{ old('category') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
               @endforeach
@@ -36,29 +36,29 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="price">Price</label>
-            <input type="number" name="price" id="price" class="form-control  @error('price') is-invalid @enderror" placeholder="1000" value="{{ old('price') }}" required>
+            <label for="price">Harga</label>
+            <input type="number" name="price" id="price" class="form-control  @error('price') is-invalid @enderror" value="{{ old('price') }}" required>
             @error('price') 
               <small class="text-danger">{{ $message }}</small>
             @enderror
           </div>
           <div class="form-group">
-            <label for="stock">Stock</label>
-            <input type="number" name="stock" id="stock" class="form-control  @error('stock') is-invalid @enderror" placeholder="10" value="{{ old('stock') }}" required>
+            <label for="stock">Stok</label>
+            <input type="number" name="stock" id="stock" class="form-control  @error('stock') is-invalid @enderror" value="{{ old('stock') }}" required>
             @error('stock') 
               <small class="text-danger">{{ $message }}</small>
             @enderror
           </div>
           <div class="form-group">
-              <label for="desc">Description</label>
-              <textarea name="desc" id="desc" cols="30" class="form-control @error('desc') is-invalid @enderror" placeholder="Homade spicy chicken nuggets with healty chicken  . . ." required>{{ old('desc') }}</textarea>
+              <label for="desc">Deskripsi</label>
+              <textarea name="desc" id="desc" cols="30" class="form-control @error('desc') is-invalid @enderror" required>{{ old('desc') }}</textarea>
               @error('desc')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
               @enderror
           </div>
-          <button type="submit" class="btn btn-primary float-end">Save</button>
+          <button type="submit" class="btn btn-primary float-end">Simpan</button>
         </form>
       </div>
     </div>

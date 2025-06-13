@@ -19,9 +19,7 @@ class ShippingController extends Controller
     public function create(Request $request)
     {
         $title = 'Tambah Pengiriman';
-        // Ambil order yang belum dikirim (misal status < 4)
         $orders = Order::where('status', '<', 4)->get();
-        // Ambil user dengan role kurir (jika ada role 'kurir', jika belum ada, tambahkan di database dan model)
         $kurirs = User::where('role', 'kurir')->get();
         $selectedOrder = $request->order_code;
         return view('admin.shippings.create', compact('title', 'orders', 'kurirs', 'selectedOrder'));
@@ -49,17 +47,14 @@ class ShippingController extends Controller
     public function show(Shipping $shipping)
     {
         $title = 'Detail Pengiriman';
-        return view('admin.shippings.show', compact('shipping', 'title'));
+        $kurir = User::find($shipping->courier_id);
+        return view('admin.shippings.show', compact('shipping', 'title', 'kurir'));
     }
 
     public function edit(Shipping $shipping)
     {
         $title = 'Edit Pengiriman';
-        // Ambil order yang belum dikirim (misal status < 4) dan order yang sedang diedit
-        $orders = Order::where('status', '<', 4)
-            ->orWhere('order_code', $shipping->order_code)
-            ->get();
-        // Ambil user dengan role kurir
+        $orders = Order::where('status', '<', 4)->get();
         $kurirs = User::where('role', 'kurir')->get();
         return view('admin.shippings.edit', compact('shipping', 'title', 'orders', 'kurirs'));
     }
@@ -69,13 +64,16 @@ class ShippingController extends Controller
         $request->validate([
             'order_code' => 'required',
             'building_number' => 'required',
-            'shipping_status' => 'required|in:pending,processing,shipped,delivered',
             'shipping_date' => 'nullable|date',
-            'courier_id' => 'required|exists:users,id'
+            'courier_id' => 'required',
         ]);
-
-        $shipping->update($request->all());
-        return redirect()->route('shippings.index')->with('success', 'Pengiriman berhasil diupdate');
+        $shipping->update([
+            'order_code' => $request->order_code,
+            'building_number' => $request->building_number,
+            'shipping_date' => $request->shipping_date,
+            'courier_id' => $request->courier_id,
+        ]);
+        return redirect()->route('shippings.index')->with('success', 'Shipping updated successfully.');
     }
 
     public function destroy(Shipping $shipping)
