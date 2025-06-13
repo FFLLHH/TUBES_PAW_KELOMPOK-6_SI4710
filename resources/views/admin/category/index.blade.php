@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('button')
-  <a href="{{ route('categoryCreate') }}" class="btn btn-outline-primary">Create</a>
+  <a href="{{ route('categoryCreate') }}" class="btn btn-outline-primary">Tambah Kategori</a>
 @endsection
 @section('content')
   <div class="card">
